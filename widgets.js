@@ -52,7 +52,7 @@
   }
 
   /* ---------- Dogs ---------- */
-  const SCALE = 3;
+  const SCALE = 2;
   const INK = "#17120f";
   const WHITE = "#fbf8f2";
   const TONGUE = "#e8758a";
@@ -113,8 +113,8 @@
   }
 
   const DOGS = [
-    { name: "Sigi", width: 28, height: 36, draw: drawSigi },
-    { name: "Alfi", width: 30, height: 26, draw: drawAlfi },
+    { name: "Sigi", width: 28, height: 36, mouth: 0.52, draw: drawSigi },
+    { name: "Alfi", width: 30, height: 26, mouth: 0.42, draw: drawAlfi },
   ];
 
   const PET_LINES = ["{name} leans in for more.", "{name}'s tail is going wild.", "Best. Pets. Ever, says {name}."];
@@ -133,14 +133,6 @@
       memory[key] = value;
     }
     return value;
-  }
-
-  function drawBone(canvas) {
-    const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#c9a26b";
-    [[0, 0, 2, 2], [0, 3, 2, 2], [8, 0, 2, 2], [8, 3, 2, 2]].forEach((b) => ctx.fillRect(...b));
-    ctx.fillStyle = "#f3e9d7";
-    [[1, 1, 8, 3], [0, 1, 2, 1], [0, 3, 2, 1], [8, 1, 2, 1], [8, 3, 2, 1]].forEach((b) => ctx.fillRect(...b));
   }
 
   function startDogs(factsFromSite) {
@@ -188,31 +180,38 @@
       setTimeout(() => { pet.state[key] = false; pet.button.classList.remove("hop"); pet.paint(); }, ms);
     }
 
-    function floatUp(pet, node) {
+    // Puts an effect on a dog. "height" is how far up the dog it sits, from 0 to 1.
+    function place(pet, node, height, life) {
       const rect = pet.button.getBoundingClientRect();
       const box = root.getBoundingClientRect();
-      node.style.left = `${rect.left - box.left + rect.width / 2 - 8}px`;
-      node.style.bottom = `${box.bottom - rect.top - 6}px`;
+      node.style.left = `${rect.left - box.left + rect.width / 2}px`;
+      node.style.bottom = `${box.bottom - rect.bottom + rect.height * height}px`;
       root.append(node);
-      setTimeout(() => node.remove(), 1300);
+      setTimeout(() => node.remove(), life);
+    }
+    function effect(className, emoji) {
+      return el("span", { className: `dog-effect ${className}`, textContent: emoji, ariaHidden: "true" });
+    }
+    function floatHearts(pet) {
+      for (let i = 0; i < 4; i += 1) {
+        const heart = effect("dog-heart", "❤️");
+        heart.style.animationDelay = `${i * 170}ms`;
+        heart.style.marginLeft = `${(i - 1.5) * 16}px`;
+        place(pet, heart, 0.95, 1900);
+      }
     }
 
     petButton.addEventListener("click", () => {
-      excite(current, "happy", 1600);
-      for (let i = 0; i < 3; i += 1) {
-        const heart = el("span", { className: "dog-heart", textContent: "♥", ariaHidden: "true" });
-        heart.style.animationDelay = `${i * 140}ms`;
-        heart.style.marginLeft = `${(i - 1) * 14}px`;
-        floatUp(current, heart);
-      }
+      const pet = current;
+      place(pet, effect("dog-hand", "✋"), 0.82, 1500);
+      excite(pet, "happy", 1500);
+      floatHearts(pet);
       say(pick(PET_LINES));
     });
     treatButton.addEventListener("click", () => {
-      const bone = el("canvas", { width: 10, height: 5, className: "dog-bone", ariaHidden: "true" });
-      drawBone(bone);
-      floatUp(current, bone);
       const pet = current;
-      setTimeout(() => excite(pet, "chew", 1100), reducedMotion ? 0 : 600);
+      place(pet, effect("dog-treat", "🦴"), pet.dog.mouth, 750);
+      setTimeout(() => { excite(pet, "chew", 1200); floatHearts(pet); }, reducedMotion ? 0 : 700);
       say(pick(TREAT_LINES));
       // Three treats unlock the hidden game, and it stays unlocked.
       const count = Number(store("dog-treats")) + 1;
@@ -248,6 +247,14 @@
     document.body.append(root);
     document.body.classList.add("has-dogs");
     setHidden(store("dogs-hidden") === "1");
+
+    const footer = document.querySelector(".site-footer");
+    function standOnFooter() {
+      if (footer) root.style.bottom = `${Math.max(0, window.innerHeight - footer.getBoundingClientRect().top)}px`;
+    }
+    window.addEventListener("scroll", standOnFooter, { passive: true });
+    window.addEventListener("resize", standOnFooter);
+    standOnFooter();
 
     if (reducedMotion) return;
     let tick = 0;
