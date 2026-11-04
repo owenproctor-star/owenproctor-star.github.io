@@ -36,7 +36,7 @@
     const peak = (cx, top, spread, color, snow) => {
       for (let y = top; y < 124; y += 1) {
         const half = Math.round((y - top) * spread);
-        r(y < top + 12 ? snow : color, cx - half, y, half * 2, 1);
+        r(y < top + 12 ? snow : y >= 110 ? "#47694f" : color, cx - half, y, half * 2, 1);
       }
     };
     peak(52, 56, 1.25, "#5f7388", "#f4f6f8");
@@ -46,9 +46,15 @@
       r("#2f3b49", x, y, w, h);
       for (let wy = y + 3; wy < y + h - 2; wy += 4) r("#e7d58f", x + 2, wy, 1, 1);
     });
-    r("#b49a64", 0, 124, W, 12);
-    r("#8e7747", 0, 136, W, 12);
-    r("#5e5033", 0, GROUND, W, H - GROUND);
+    r("#8db55a", 0, 124, W, 12);
+    r("#6f9c46", 0, 136, W, 12);
+    r("#527f35", 0, GROUND, W, H - GROUND);
+    for (let i = 0; i < 46; i += 1) {
+      const tuftX = (i * 37 + (i % 5) * 11) % W;
+      const tuftY = 126 + ((i * 23) % 32);
+      r(tuftY < 136 ? "#769f49" : tuftY < GROUND ? "#5a8739" : "#3f6729", tuftX, tuftY, 2, 1);
+      r(tuftY < 136 ? "#a2c56c" : tuftY < GROUND ? "#86ad58" : "#6f9c46", tuftX + 3, tuftY - 1, 1, 2);
+    }
     return canvas;
   }
 
@@ -117,7 +123,7 @@
         c.fillStyle = "#f2c230"; c.fillRect(sx - 1, sy, 3, 1); c.fillRect(sx, sy - 1, 1, 3);
       }
     }
-    function drawPlane(time) {
+    function drawPlane() {
       const left = Math.round(plane.x);
       const top = Math.round(plane.y);
       const p = (color, px, py, w, h) => {
@@ -134,12 +140,10 @@
       p("#b9c2cb", 9, 7, 6, 2); // near wing
       p("#b9c2cb", 10, 9, 4, 1);
       p("#d6dce2", 11, 2, 3, 2); // far wing
-      // Blinking light
-      if (Math.floor(time / 400) % 2 === 0) p("#c8344f", 13, 10, 1, 1);
     }
     function render(time) {
       c.drawImage(backdrop, 0, 0);
-      if (plane) drawPlane(time);
+      if (plane) drawPlane();
       drops.forEach(drawDrop);
       sprite({ wag: Math.floor(time / 180) % 2 === 0, blink: time < hurtUntil, happy: time < chewUntil, chew: time < chewUntil }, time);
       effects.forEach((effect) => { if (effect.age >= 0) (effect.kind === "heart" ? drawHeart : drawOuch)(effect, time); });
