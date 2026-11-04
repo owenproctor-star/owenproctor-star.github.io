@@ -40,7 +40,7 @@
     const nav = [
       services.length && ["/services", "Services", "services"],
       ["/about", "About", "about"],
-      ["/contact", "Contact", "contact"],
+      s.ctaUrl && s.ctaUrl.trim() && ["/contact", "Contact", "contact"],
     ].filter(Boolean).map(([href, label, key]) =>
       `<a href="${href}"${key === active ? ' aria-current="page"' : ""}>${label}</a>`).join("");
     const footerLinks = [
@@ -190,7 +190,7 @@ ${s.resume ? `<p class="actions"><a href="${url(s.resume)}">Download résumé</a
       ...(s.links || []).filter((l) => l.label && l.url).map((l) => `<dt>${esc(l.label)}</dt><dd><a href="${url(l.url)}">Open link</a></dd>`),
     ].filter(Boolean).join("\n      ");
     const map = s.address && s.address.trim() ? `<iframe class="map" title="Map of ${esc(s.address.replace(/\n/g, ", "))}" loading="lazy" referrerpolicy="no-referrer" src="https://www.google.com/maps?q=${encodeURIComponent(s.address.replace(/\n/g, ", "))}&amp;output=embed"></iframe>` : "";
-    return `<h1>Contact</h1>
+    return `<h1>Get in touch</h1>
 <div class="contact-grid">
   <form id="contact-form" class="form"${endpoint ? ` action="${url(endpoint)}" method="POST"` : ` data-email="${esc(s.email)}"`}>
     <label>Your name<input name="name" autocomplete="name" required></label>
