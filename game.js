@@ -32,6 +32,7 @@
     const c = canvas.getContext("2d");
     const r = (color, x, y, w, h) => { c.fillStyle = color; c.fillRect(x, y, w, h); };
     ["#c7dcea", "#bcd5e7", "#aecde3", "#a2c5df"].forEach((color, i) => r(color, 0, i * 24, W, 24));
+    r("#a2c5df", 0, 96, W, 28); // sky continues behind the mountains, so no gaps
     r("#f5f2ea", 30, 18, 22, 3); r("#f5f2ea", 36, 15, 12, 3); r("#f5f2ea", 170, 28, 26, 3); r("#f5f2ea", 178, 25, 12, 3);
     const peak = (cx, top, spread, color, snow) => {
       for (let y = top; y < 124; y += 1) {
