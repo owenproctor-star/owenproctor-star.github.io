@@ -120,7 +120,6 @@
   const PET_LINES = ["{name} leans in for more.", "{name}'s tail is going wild.", "Best. Pets. Ever, says {name}."];
   const TREAT_LINES = ["{name} says thank you, very politely.", "Gone in one bite. {name} checks for another.", "{name} approves of this website."];
   const FALLBACK_FACTS = ["Alfi is the chihuahua. Sigi is the black and white one."];
-  const TREATS_TO_UNLOCK = 3;
 
   // Small localStorage helper that keeps working in private browsing.
   const memory = {};
@@ -140,15 +139,17 @@
     const pack = el("div", { className: "dog-row" });
     const showButton = el("button", { type: "button", className: "dog-pill", textContent: "Bring back Sigi and Alfi", hidden: true });
     const hideButton = el("button", { type: "button", className: "dog-pill dog-hide", textContent: "Hide dogs" });
+    const playPill = el("button", { type: "button", className: "dog-pill", textContent: "Play game" });
+    const pills = el("div", { className: "dog-pills" }, playPill, hideButton);
     const message = el("p", { className: "dog-message" });
     const petButton = el("button", { type: "button", textContent: "Pet" });
     const treatButton = el("button", { type: "button", textContent: "Give a treat" });
     const factButton = el("button", { type: "button", textContent: "Another fact" });
-    const gameButton = el("button", { type: "button", className: "dog-game", textContent: "Play Treat Catch", hidden: true });
+    const gameButton = el("button", { type: "button", className: "dog-game", textContent: "Play Treat Catch" });
     const closeButton = el("button", { type: "button", textContent: "Close" });
     const bubble = el("div", { className: "dog-bubble", hidden: true, role: "status" },
       message, el("div", { className: "dog-actions" }, petButton, treatButton, factButton, gameButton, closeButton));
-    const root = el("aside", { className: "dogs", ariaLabel: "Sigi and Alfi, the virtual dogs" }, bubble, hideButton, pack, showButton);
+    const root = el("aside", { className: "dogs", ariaLabel: "Sigi and Alfi, the virtual dogs" }, bubble, pills, pack, showButton);
     let current = null;
 
     const pets = DOGS.map((dog) => {
@@ -250,29 +251,24 @@
       tossTreat(pet);
       setTimeout(() => { excite(pet, "chew", 1200); floatHearts(pet); }, reducedMotion ? 0 : 700);
       say(pick(TREAT_LINES));
-      // Three treats unlock the hidden game, and it stays unlocked.
-      const count = Number(store("dog-treats")) + 1;
-      store("dog-treats", count);
-      if (count === TREATS_TO_UNLOCK) say("All those treats woke something up… you found the secret game!");
-      refreshGameButton();
     });
-    gameButton.addEventListener("click", () => {
+    function openGame() {
       bubble.hidden = true;
       const launch = () => window.TreatCatch.open(DOGS);
       if (window.TreatCatch) { launch(); return; }
       const script = el("script", { src: "/game.js" });
       script.onload = launch;
       document.head.append(script);
-    });
-    function refreshGameButton() { gameButton.hidden = Number(store("dog-treats")) < TREATS_TO_UNLOCK; }
-    refreshGameButton();
+    }
+    gameButton.addEventListener("click", openGame);
+    playPill.addEventListener("click", openGame);
     factButton.addEventListener("click", () => say(pick(facts)));
     closeButton.addEventListener("click", () => { bubble.hidden = true; });
     document.addEventListener("keydown", (event) => { if (event.key === "Escape") bubble.hidden = true; });
 
     function setHidden(hidden) {
       pack.hidden = hidden;
-      hideButton.hidden = hidden;
+      pills.hidden = hidden;
       showButton.hidden = !hidden;
       if (hidden) bubble.hidden = true;
       document.body.classList.toggle("dogs-away", hidden);

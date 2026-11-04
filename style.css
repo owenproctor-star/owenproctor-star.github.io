@@ -149,6 +149,8 @@ main > section .cards { margin-top: 0; }
 .dog:focus-visible { outline-offset: 1px; border-radius: 6px; }
 .dog-pill { margin-bottom: .35rem; padding: .15rem .6rem; border: 1px solid var(--line); border-radius: 99px; background: var(--paper); color: var(--muted); font: 500 .75rem/1.5 var(--sans); cursor: pointer; }
 .dog-pill:hover { color: var(--ink); }
+.dog-pills { display: flex; gap: .35rem; }
+.dog-pills[hidden] { display: none; }
 .dog-pill[hidden] { display: none; }
 .dog-bubble { width: min(20rem, calc(100vw - 1rem)); margin-bottom: .5rem; padding: .9rem 1rem; background: var(--paper-soft); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 8px 24px rgba(20, 24, 30, .3); font-size: .9375rem; line-height: 1.45; }
 .dog-bubble[hidden] { display: none; }
