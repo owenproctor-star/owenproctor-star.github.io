@@ -18,7 +18,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap header-row">
-    <a class="brand" href="/">Owen Proctor</a>
+    <a class="brand" href="/">Home</a>
     <nav aria-label="Main"><a href="/about">About</a><a href="/contact" aria-current="page">Contact</a><a class="button button-small" href="/contact">Get in touch</a></nav>
   </div>
 </header>
@@ -51,5 +51,6 @@
   </div>
 </footer>
 <script>document.getElementById("contact-form").addEventListener("submit",function(e){var f=e.target;if(!f.dataset.email)return;e.preventDefault();var b=f.elements.message.value+"\n\n"+f.elements.name.value+"\n"+f.elements.email.value;location.href="mailto:"+f.dataset.email+"?subject="+encodeURIComponent("Website message from "+f.elements.name.value)+"&body="+encodeURIComponent(b);});</script>
+<script src="/widgets.js" defer></script>
 </body>
 </html>

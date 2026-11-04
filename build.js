@@ -69,7 +69,7 @@ ${jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd).replace(
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap header-row">
-    <a class="brand" href="/">${esc(s.name)}</a>
+    <a class="brand" href="/"${path === "/" ? ' aria-current="page"' : ""}>Home</a>
     <nav aria-label="Main">${nav}<a class="button button-small" href="${ctaHref(s)}">${ctaLabel(s)}</a></nav>
   </div>
 </header>
@@ -83,7 +83,8 @@ ${body}
     <span class="credit">Background: <a href="https://commons.wikimedia.org/wiki/File:Denver_Colorado_Skyline_at_Rocky_Mountain_Arsenal_(53658444917).jpg">Denver skyline</a> by Tony Webster, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>, resized</span>
   </div>
 </footer>
-${script ? `<script>${script}</script>\n` : ""}</body>
+${script ? `<script>${script}</script>\n` : ""}<script src="/widgets.js" defer></script>
+</body>
 </html>
 `;
   }
@@ -103,6 +104,11 @@ ${services.map((v) => `    <a class="card" href="/service-${v.slug}">
     </a>`).join("\n")}
   </div>
 </section>` : "";
+    const firstQuote = (s.quotes || []).find((q) => q.text);
+    const quote = firstQuote ? `<figure class="quote" id="quote-widget">
+  <blockquote>${esc(firstQuote.text)}</blockquote>
+  <figcaption>${esc(firstQuote.author)}</figcaption>
+</figure>` : "";
     const aboutTeaser = s.about && s.about.trim() ? `<section>
   <h2 class="label">Who Am I</h2>
   ${paragraphs(firstParagraph(s.about))}
@@ -115,6 +121,7 @@ ${services.map((v) => `    <a class="card" href="/service-${v.slug}">
   ${s.subheadline ? `<p class="lead">${esc(s.subheadline)}</p>` : ""}
   <p class="actions">${ctaButton(s)}</p>
 </section>
+${quote}
 ${cards}
 ${aboutTeaser}`;
   }

@@ -62,5 +62,70 @@
       "heading": "Awards",
       "items": []
     }
+  ],
+  "quotes": [
+    {
+      "text": "Well done is better than well said.",
+      "author": "Benjamin Franklin, Poor Richard's Almanack (1737)"
+    },
+    {
+      "text": "Waste no more time arguing what a good man should be. Be one.",
+      "author": "Marcus Aurelius, Meditations"
+    },
+    {
+      "text": "The impediment to action advances action. What stands in the way becomes the way.",
+      "author": "Marcus Aurelius, Meditations (Hays translation)"
+    },
+    {
+      "text": "With malice toward none, with charity for all, with firmness in the right as God gives us to see the right, let us strive on to finish the work we are in.",
+      "author": "Abraham Lincoln, Second Inaugural Address (1865)"
+    },
+    {
+      "text": "Let us have faith that right makes might, and in that faith let us to the end dare to do our duty as we understand it.",
+      "author": "Abraham Lincoln, Cooper Union Address (1860)"
+    },
+    {
+      "text": "Never give in, never give in, never, never, never, never, in nothing great or small, large or petty, never give in except to convictions of honour and good sense.",
+      "author": "Winston Churchill, Harrow School (1941)"
+    },
+    {
+      "text": "It is not the critic who counts. The credit belongs to the man who is actually in the arena.",
+      "author": "Theodore Roosevelt, Citizenship in a Republic (1910)"
+    },
+    {
+      "text": "It is not because things are difficult that we do not dare, but because we do not dare, things are difficult.",
+      "author": "Seneca, Letters to Lucilius"
+    },
+    {
+      "text": "If there is no struggle, there is no progress.",
+      "author": "Frederick Douglass, West India Emancipation speech (1857)"
+    },
+    {
+      "text": "You must do the thing you think you cannot do.",
+      "author": "Eleanor Roosevelt, You Learn by Living (1960)"
+    }
+  ],
+  "dogFacts": [
+    {
+      "text": "Alfi is the chihuahua. Sigi is the black and white one."
+    },
+    {
+      "text": "Chihuahuas are named after Chihuahua, a state in northern Mexico."
+    },
+    {
+      "text": "Dogs have a third eyelid that helps protect and moisten the eye."
+    },
+    {
+      "text": "Puppies are born with their eyes closed and their ear canals sealed."
+    },
+    {
+      "text": "Dogs sweat mainly through their paw pads."
+    },
+    {
+      "text": "A dog's sense of smell is far more powerful than a person's."
+    },
+    {
+      "text": "Chocolate and grapes are toxic to dogs. Good thing these treats are pixels."
+    }
   ]
 }

@@ -44,6 +44,17 @@
         { key: "items", type: "list", itemName: "Entry", titleKey: "title", fields: ITEM_FIELDS },
       ] },
     ] },
+    { title: "Rotating quotes", fields: [
+      { key: "quotes", type: "list", itemName: "Quote", titleKey: "author", fields: [
+        { key: "text", label: "Quote", type: "textarea" },
+        { key: "author", label: "Who said it, and where" },
+      ] },
+    ] },
+    { title: "Sigi and Alfi's random facts", fields: [
+      { key: "dogFacts", type: "list", itemName: "Fact", titleKey: "text", fields: [
+        { key: "text", label: "Fact", type: "textarea" },
+      ] },
+    ] },
     { title: "Contact", fields: [
       { key: "email", label: "Email" },
       { key: "phone", label: "Phone" },

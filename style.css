@@ -127,3 +127,59 @@ main > section .cards { margin-top: 0; }
   .split > .label { padding-top: .25rem; }
   .contact-grid { grid-template-columns: 1.2fr 1fr; }
 }
+
+/* Quote widget */
+.quote { margin: 2rem 0 0; padding: 1.25rem 1.5rem; background: var(--paper-soft); border: 1px solid var(--line); border-radius: 10px; transition: opacity .25s; }
+.quote.fading { opacity: 0; }
+.quote blockquote { font-size: 1.1875rem; font-weight: 500; line-height: 1.45; letter-spacing: -.01em; min-height: 5.8em; }
+.quote figcaption { margin-top: .5rem; color: var(--muted); font-size: .9375rem; }
+.quote-controls { display: flex; gap: 1rem; margin-top: .5rem; }
+.text-button { padding: .2rem 0; border: 0; background: none; color: var(--muted); font: 500 .875rem/1.4 var(--sans); text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+.text-button:hover { color: var(--ink); }
+@media (min-width: 44rem) { .quote blockquote { min-height: 4.4em; } }
+
+/* Sigi and Alfi */
+.has-dogs .site-footer { padding-bottom: 8.5rem; }
+.has-dogs.dogs-away .site-footer { padding-bottom: 3rem; }
+.dogs { position: fixed; right: clamp(.5rem, 3vw, 2rem); bottom: 0; z-index: 9; display: flex; flex-direction: column; align-items: flex-end; pointer-events: none; }
+.dogs > * { pointer-events: auto; }
+.dog-row { display: flex; align-items: flex-end; gap: .25rem; }
+.dog-row[hidden] { display: none; }
+.dog { display: block; padding: 0; border: 0; background: none; cursor: pointer; line-height: 0; }
+.dog canvas { display: block; image-rendering: pixelated; filter: drop-shadow(0 2px 2px rgba(20, 24, 30, .35)); }
+.dog:hover { transform: translateY(-2px); }
+.dog:focus-visible { outline-offset: 1px; border-radius: 6px; }
+.dog.hop { animation: dog-hop .45s ease-in-out infinite; }
+@keyframes dog-hop { 50% { transform: translateY(-6px); } }
+.dog-pill { margin-bottom: .35rem; padding: .15rem .6rem; border: 1px solid var(--line); border-radius: 99px; background: var(--paper); color: var(--muted); font: 500 .75rem/1.5 var(--sans); cursor: pointer; }
+.dog-pill:hover { color: var(--ink); }
+.dog-pill[hidden] { display: none; }
+.dog-bubble { width: min(20rem, calc(100vw - 1rem)); margin-bottom: .5rem; padding: .9rem 1rem; background: var(--paper-soft); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 8px 24px rgba(20, 24, 30, .3); font-size: .9375rem; line-height: 1.45; }
+.dog-bubble[hidden] { display: none; }
+.dog-actions { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .65rem; }
+.dog-actions button { padding: .3rem .6rem; border: 1px solid var(--field); border-radius: 6px; background: var(--paper); color: var(--ink); font: 500 .8125rem/1.3 var(--sans); cursor: pointer; }
+.dog-actions button:hover { border-color: var(--ink); }
+.dog-actions button[hidden] { display: none; }
+.dog-actions .dog-game { background: var(--ink); border-color: var(--ink); color: var(--paper-soft); }
+.dog-heart { position: absolute; color: #c8344f; font-size: 1.1rem; line-height: 1; opacity: 0; pointer-events: none; animation: dog-float 1.1s ease-out forwards; }
+.dog-bone { position: absolute; width: 30px; height: 15px; image-rendering: pixelated; pointer-events: none; animation: dog-drop .6s ease-in forwards; }
+@keyframes dog-float { 0% { opacity: 0; transform: translateY(8px); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-48px); } }
+@keyframes dog-drop { 0% { opacity: 0; transform: translateY(-36px); } 20% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; transform: translateY(14px); } }
+@media (prefers-reduced-motion: reduce) {
+  .quote, .dog:hover { transition: none; transform: none; }
+  .dog.hop, .dog-heart, .dog-bone { animation-duration: .01s; }
+}
+
+/* Treat Catch */
+.game { width: min(34rem, calc(100vw - 1.5rem)); max-height: calc(100dvh - 1.5rem); margin: auto; padding: 1rem 1.25rem 1.25rem; border: 0; border-radius: 12px; background: var(--paper); color: var(--ink); box-shadow: 0 20px 60px rgba(20, 24, 30, .5); }
+.game::backdrop { background: rgba(20, 24, 30, .65); }
+.game-head, .game-hud { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.game-head h2 { font-size: 1.25rem; font-weight: 650; letter-spacing: -.01em; }
+.game-hud { margin-block: .4rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.game-hud span:last-child { color: #c8344f; letter-spacing: .1em; }
+.game-canvas { display: block; width: 100%; aspect-ratio: 3 / 2; border-radius: 6px; image-rendering: pixelated; touch-action: none; cursor: none; }
+.game-message { margin-top: .6rem; font-size: .9375rem; line-height: 1.45; }
+.game-buttons { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .6rem; }
+.game h3 { margin-top: .8rem; font-size: .875rem; font-weight: 600; }
+.game-scores { margin: .2rem 0 0; padding-left: 1.25rem; font-size: .875rem; }
+.game-scores .new { font-weight: 700; }
