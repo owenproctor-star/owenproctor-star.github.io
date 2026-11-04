@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#efece6">
+<title>Contact | Owen Proctor</title>
+<meta name="description" content="Contact Owen Proctor.">
+<link rel="canonical" href="https://owenproctor.com/contact">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contact | Owen Proctor">
+<meta property="og:description" content="Contact Owen Proctor.">
+<meta property="og:url" content="https://owenproctor.com/contact">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231c1f23'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='14' font-weight='700' text-anchor='middle' fill='%23efece6'%3EOP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="/">Owen Proctor</a>
+    <nav aria-label="Main"><a href="/about">About</a><a href="/contact" aria-current="page">Contact</a><a class="button button-small" href="/contact">Get in touch</a></nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+<h1>Contact</h1>
+<div class="contact-grid">
+  <form id="contact-form" class="form" data-email="owenproctor@gmail.com">
+    <label>Your name<input name="name" autocomplete="name" required></label>
+    <label>Your email<input name="email" type="email" autocomplete="email" required></label>
+    <label>Message<textarea name="message" rows="6" required></textarea></label>
+    <input class="trap" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="note">Please don't include medical details or other health information. Sending opens your email app with this message filled in.</p>
+    <button class="button" type="submit">Send message</button>
+  </form>
+  <div>
+    <dl class="details">
+      <dt>Email</dt><dd><a href="mailto:owenproctor@gmail.com">owenproctor@gmail.com</a></dd>
+      <dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/owenproctor">View profile</a></dd>
+      <dt>Facebook</dt><dd><a href="https://www.facebook.com/owen.proctor.5/">Open link</a></dd>
+    </dl>
+    
+  </div>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <span>© Owen Proctor</span>
+    <a href="mailto:owenproctor@gmail.com">owenproctor@gmail.com</a><a href="https://www.linkedin.com/in/owenproctor">LinkedIn</a><a href="https://www.facebook.com/owen.proctor.5/">Facebook</a>
+    <span class="credit">Background: <a href="https://commons.wikimedia.org/wiki/File:Denver_Colorado_Skyline_at_Rocky_Mountain_Arsenal_(53658444917).jpg">Denver skyline</a> by Tony Webster, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>, resized</span>
+  </div>
+</footer>
+<script>document.getElementById("contact-form").addEventListener("submit",function(e){var f=e.target;if(!f.dataset.email)return;e.preventDefault();var b=f.elements.message.value+"\n\n"+f.elements.name.value+"\n"+f.elements.email.value;location.href="mailto:"+f.dataset.email+"?subject="+encodeURIComponent("Website message from "+f.elements.name.value)+"&body="+encodeURIComponent(b);});</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "siteUrl": "https://owenproctor.com",
+  "name": "Owen Proctor",
+  "credentials": "",
+  "title": "Licensed Pharmacist",
+  "location": "Colorado",
+  "headline": "Licensed pharmacist in Colorado",
+  "subheadline": "",
+  "ctaLabel": "Get in touch",
+  "ctaUrl": "",
+  "photo": "",
+  "about": "",
+  "mission": "",
+  "email": "owenproctor@gmail.com",
+  "phone": "",
+  "address": "",
+  "hours": "",
+  "linkedin": "https://www.linkedin.com/in/owenproctor",
+  "resume": "",
+  "formEndpoint": "",
+  "links": [
+    { "label": "Facebook", "url": "https://www.facebook.com/owen.proctor.5/" }
+  ],
+  "services": [],
+  "sections": [
+    { "heading": "Licensure", "items": [{ "title": "Pharmacist", "org": "State of Colorado", "dates": "", "details": "", "url": "" }] },
+    { "heading": "Experience", "items": [] },
+    { "heading": "Education", "items": [] },
+    { "heading": "Certifications", "items": [] },
+    { "heading": "Publications & Presentations", "items": [] },
+    { "heading": "Memberships", "items": [] },
+    { "heading": "Awards", "items": [] },
+    { "heading": "Personal Interests", "items": [
+      { "title": "Die-hard Colorado Avalanche fan", "org": "", "dates": "", "details": "", "url": "" },
+      { "title": "Denver Broncos fan", "org": "", "dates": "", "details": "", "url": "" },
+      { "title": "Dog father", "org": "", "dates": "", "details": "", "url": "" }
+    ] }
+  ]
+}
