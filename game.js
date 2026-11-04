@@ -163,8 +163,8 @@
       running = true;
       last = performance.now();
       canvas.focus();
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(loop);
+      clearTimeout(frame);
+      frame = nextFrame();
     }
     function loseLife(time) {
       lives -= 1;
@@ -215,13 +215,14 @@
         return true;
       });
     }
+    const nextFrame = () => setTimeout(() => loop(performance.now()), 16);
     function loop(time) {
       const dt = Math.min(0.05, (time - last) / 1000);
       last = time;
       if (running) step(dt, time);
       else effects = effects.filter((effect) => { effect.age += dt; return effect.age < effect.life; });
       render(time);
-      if (running || effects.length || time < flashUntil) frame = requestAnimationFrame(loop);
+      if (running || effects.length || time < flashUntil) frame = nextFrame();
     }
 
     const onKey = (event) => {
@@ -240,7 +241,7 @@
     canvas.addEventListener("pointerdown", onPointer);
     canvas.tabIndex = 0;
     closeButton.addEventListener("click", () => dialog.close());
-    dialog.addEventListener("close", () => { running = false; cancelAnimationFrame(frame); dialog.remove(); });
+    dialog.addEventListener("close", () => { running = false; clearTimeout(frame); dialog.remove(); });
     document.addEventListener("visibilitychange", () => { if (document.hidden && running) last = performance.now(); });
 
     document.body.append(dialog);

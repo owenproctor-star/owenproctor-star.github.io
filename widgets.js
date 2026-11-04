@@ -176,41 +176,78 @@
       pet.state[key] = true;
       pet.excitedUntil = Date.now() + ms;
       pet.paint();
-      pet.button.classList.add("hop");
-      setTimeout(() => { pet.state[key] = false; pet.button.classList.remove("hop"); pet.paint(); }, ms);
+      if (!reducedMotion) {
+        run(ms, 0, (p) => { pet.button.style.transform = `translateY(${-7 * Math.abs(Math.sin(p * Math.PI * 4))}px)`; },
+          () => { pet.button.style.transform = ""; });
+      }
+      setTimeout(() => { pet.state[key] = false; pet.paint(); }, ms);
     }
 
-    // Puts an effect on a dog. "height" is how far up the dog it sits, from 0 to 1.
-    function place(pet, node, height, life) {
+    // Runs an animation on plain timers, so it plays even when the browser
+    // is slow to deliver animation frames. "draw" receives progress from 0 to 1.
+    function run(duration, delay, draw, done) {
+      const begin = performance.now() + delay;
+      const timer = setInterval(() => {
+        const p = (performance.now() - begin) / duration;
+        if (p < 0) return;
+        if (p >= 1) { clearInterval(timer); if (done) done(); return; }
+        draw(p);
+      }, 30);
+    }
+
+    // Puts an emoji on a dog. "height" is how far up the dog it sits, from 0 to 1.
+    function effect(pet, className, emoji, height, duration, delay, draw) {
+      const node = el("span", { className: `dog-effect ${className}`, textContent: emoji, ariaHidden: "true" });
       const rect = pet.button.getBoundingClientRect();
       const box = root.getBoundingClientRect();
       node.style.left = `${rect.left - box.left + rect.width / 2}px`;
       node.style.bottom = `${box.bottom - rect.bottom + rect.height * height}px`;
+      if (delay) node.style.opacity = "0";
+      else draw(node, 0);
       root.append(node);
-      setTimeout(() => node.remove(), life);
+      run(duration, delay, (p) => draw(node, p), () => node.remove());
     }
-    function effect(className, emoji) {
-      return el("span", { className: `dog-effect ${className}`, textContent: emoji, ariaHidden: "true" });
-    }
+
     function floatHearts(pet) {
       for (let i = 0; i < 4; i += 1) {
-        const heart = effect("dog-heart", "❤️");
-        heart.style.animationDelay = `${i * 170}ms`;
-        heart.style.marginLeft = `${(i - 1.5) * 16}px`;
-        place(pet, heart, 0.95, 1900);
+        const offset = (i - 1.5) * 16;
+        effect(pet, "dog-heart", "❤️", 0.95, 1300, i * 170, (node, p) => {
+          const rise = reducedMotion ? 30 : 75 * p;
+          node.style.opacity = String(Math.min(1, 6 * p + 0.3, (1 - p) * 3));
+          node.style.transform = `translate(${offset}px, ${-rise}px) scale(${0.8 + 0.4 * p})`;
+        });
       }
+    }
+
+    function patDog(pet) {
+      effect(pet, "dog-hand", "✋", 0.82, 1500, 0, (node, p) => {
+        const pat = reducedMotion ? 0 : Math.abs(Math.sin(p * Math.PI * 3));
+        const tilt = reducedMotion ? 0 : 8 * Math.sin(p * Math.PI * 6);
+        node.style.opacity = String(Math.min(1, (1 - p) * 8));
+        node.style.transform = `translateY(${-12 + 13 * pat}px) rotate(${tilt}deg)`;
+      });
+    }
+
+    function tossTreat(pet) {
+      effect(pet, "dog-treat", "🦴", pet.dog.mouth, 750, 0, (node, p) => {
+        const q = reducedMotion ? 1 : p;
+        const x = -170 * (1 - q);
+        const y = -40 * (1 - q) - 400 * q * (1 - q);
+        node.style.opacity = String(Math.min(1, (1 - p) * 8));
+        node.style.transform = `translate(${x}px, ${y}px) rotate(${-260 * (1 - q)}deg) scale(${q > 0.9 ? 0.75 : 1})`;
+      });
     }
 
     petButton.addEventListener("click", () => {
       const pet = current;
-      place(pet, effect("dog-hand", "✋"), 0.82, 1500);
+      patDog(pet);
       excite(pet, "happy", 1500);
       floatHearts(pet);
       say(pick(PET_LINES));
     });
     treatButton.addEventListener("click", () => {
       const pet = current;
-      place(pet, effect("dog-treat", "🦴"), pet.dog.mouth, 750);
+      tossTreat(pet);
       setTimeout(() => { excite(pet, "chew", 1200); floatHearts(pet); }, reducedMotion ? 0 : 700);
       say(pick(TREAT_LINES));
       // Three treats unlock the hidden game, and it stays unlocked.
