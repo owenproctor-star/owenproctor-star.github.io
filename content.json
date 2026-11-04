@@ -19,21 +19,48 @@
   "resume": "",
   "formEndpoint": "",
   "links": [
-    { "label": "Facebook", "url": "https://www.facebook.com/owen.proctor.5/" }
+    {
+      "label": "Facebook",
+      "url": "https://www.facebook.com/owen.proctor.5/"
+    }
   ],
   "services": [],
   "sections": [
-    { "heading": "Licensure", "items": [{ "title": "Pharmacist", "org": "State of Colorado", "dates": "", "details": "", "url": "" }] },
-    { "heading": "Experience", "items": [] },
-    { "heading": "Education", "items": [] },
-    { "heading": "Certifications", "items": [] },
-    { "heading": "Publications & Presentations", "items": [] },
-    { "heading": "Memberships", "items": [] },
-    { "heading": "Awards", "items": [] },
-    { "heading": "Personal Interests", "items": [
-      { "title": "Die-hard Colorado Avalanche fan", "org": "", "dates": "", "details": "", "url": "" },
-      { "title": "Denver Broncos fan", "org": "", "dates": "", "details": "", "url": "" },
-      { "title": "Dog father", "org": "", "dates": "", "details": "", "url": "" }
-    ] }
+    {
+      "heading": "Licensure",
+      "items": [
+        {
+          "title": "Pharmacist",
+          "org": "State of Colorado",
+          "dates": "",
+          "details": "",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "heading": "Experience",
+      "items": []
+    },
+    {
+      "heading": "Education",
+      "items": []
+    },
+    {
+      "heading": "Certifications",
+      "items": []
+    },
+    {
+      "heading": "Publications & Presentations",
+      "items": []
+    },
+    {
+      "heading": "Memberships",
+      "items": []
+    },
+    {
+      "heading": "Awards",
+      "items": []
+    }
   ]
 }

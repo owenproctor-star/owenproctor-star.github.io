@@ -34,7 +34,7 @@
       { key: "title", label: "Professional title" },
       { key: "location", label: "Location", hint: "State or area, shown beside your title." },
       { key: "photo", label: "Photo", type: "upload", accept: "image/jpeg,image/png,image/webp" },
-      { key: "about", label: "Your story", hint: "Leave a blank line between paragraphs.", type: "textarea" },
+      { key: "about", label: "Who am I", hint: "Stays hidden on the site until you write something. Leave a blank line between paragraphs.", type: "textarea" },
       { key: "mission", label: "Mission", type: "textarea" },
       { key: "resume", label: "Résumé PDF", type: "upload", accept: "application/pdf" },
     ] },

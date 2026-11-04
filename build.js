@@ -104,7 +104,7 @@ ${services.map((v) => `    <a class="card" href="/service-${v.slug}">
   </div>
 </section>` : "";
     const aboutTeaser = s.about && s.about.trim() ? `<section>
-  <h2 class="label">About</h2>
+  <h2 class="label">Who Am I</h2>
   ${paragraphs(firstParagraph(s.about))}
   <p><a href="/about">More about ${esc(s.name)}</a></p>
 </section>` : "";
@@ -159,8 +159,11 @@ ${ctaBand(s)}`;
   ${s.photo ? `<img class="photo" src="${url(s.photo)}" alt="${esc(s.name)}">` : ""}
   <h1>About ${esc(s.name)}${s.credentials ? `<span class="credentials">${esc(s.credentials)}</span>` : ""}</h1>
   ${roleLine(s) ? `<p class="lead">${esc(roleLine(s))}</p>` : ""}
-  ${paragraphs(s.about)}
 </div>
+${s.about && s.about.trim() ? `<section class="split">
+  <h2 class="label">Who Am I</h2>
+  <div>${paragraphs(s.about)}</div>
+</section>` : ""}
 ${s.mission && s.mission.trim() ? `<section class="split">
   <h2 class="label">Mission</h2>
   <div>${paragraphs(s.mission)}</div>
