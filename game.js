@@ -70,7 +70,7 @@
 
     const keys = {};
     let frame = 0, running = false, last = 0;
-    let dog = dogs[0], x = W / 2, score = 0, lives = 3, drops = [], spawnIn = 0, elapsed = 0, target = null, hurtUntil = 0, chewUntil = 0, shakeUntil = 0, flashUntil = 0, effects = [];
+    let dog = dogs[0], x = W / 2, score = 0, lives = 3, drops = [], spawnIn = 0, elapsed = 0, target = null, hurtUntil = 0, chewUntil = 0, shakeUntil = 0, flashUntil = 0, effects = [], plane = null, planeIn = 5;
 
     const sprite = (pose, time) => {
       const shake = !CALM && time < shakeUntil ? Math.round(Math.sin(time / 22) * 3) : 0;
@@ -117,8 +117,29 @@
         c.fillStyle = "#f2c230"; c.fillRect(sx - 1, sy, 3, 1); c.fillRect(sx, sy - 1, 1, 3);
       }
     }
+    function drawPlane(time) {
+      const left = Math.round(plane.x);
+      const top = Math.round(plane.y);
+      const p = (color, px, py, w, h) => {
+        c.fillStyle = color;
+        c.fillRect(plane.dir > 0 ? left + px : left + 24 - px - w, top + py, w, h);
+      };
+      // Fading trail behind the tail
+      for (let i = 0; i < 5; i += 1) p("#f5f2ea", -4 - i * 6, 5, 3 - Math.min(2, i), 1);
+      p("#f7f8f9", 2, 4, 19, 3); // body
+      p("#f7f8f9", 21, 5, 2, 2); // nose
+      p("#c8344f", 2, 1, 3, 3); // tail fin
+      p("#3a5f85", 4, 5, 15, 1); // stripe
+      p("#1c1f23", 20, 4, 2, 1); // cockpit
+      p("#b9c2cb", 9, 7, 6, 2); // near wing
+      p("#b9c2cb", 10, 9, 4, 1);
+      p("#d6dce2", 11, 2, 3, 2); // far wing
+      // Blinking light
+      if (Math.floor(time / 400) % 2 === 0) p("#c8344f", 13, 10, 1, 1);
+    }
     function render(time) {
       c.drawImage(backdrop, 0, 0);
+      if (plane) drawPlane(time);
       drops.forEach(drawDrop);
       sprite({ wag: Math.floor(time / 180) % 2 === 0, blink: time < hurtUntil, happy: time < chewUntil, chew: time < chewUntil }, time);
       effects.forEach((effect) => { if (effect.age >= 0) (effect.kind === "heart" ? drawHeart : drawOuch)(effect, time); });
@@ -155,7 +176,7 @@
       offerDogs("Play again with");
     }
     function start(chosen) {
-      dog = chosen; x = W / 2; score = 0; lives = 3; drops = []; spawnIn = 0; elapsed = 0; target = null; hurtUntil = 0; chewUntil = 0; shakeUntil = 0; flashUntil = 0; effects = [];
+      dog = chosen; x = W / 2; score = 0; lives = 3; drops = []; spawnIn = 0; elapsed = 0; target = null; hurtUntil = 0; chewUntil = 0; shakeUntil = 0; flashUntil = 0; effects = []; plane = null; planeIn = 5;
       updateHud();
       buttons.replaceChildren();
       scoresBox.hidden = true;
@@ -187,6 +208,16 @@
     function step(dt, time) {
       elapsed += dt;
       effects = effects.filter((effect) => { effect.age += dt; return effect.age < effect.life; });
+      if (plane) {
+        plane.x += plane.dir * 58 * dt;
+        if (plane.x < -60 || plane.x > W + 60) { plane = null; planeIn = 12 + Math.random() * 10; }
+      } else {
+        planeIn -= dt;
+        if (planeIn <= 0) {
+          const dir = Math.random() < 0.5 ? 1 : -1;
+          plane = { dir, x: dir > 0 ? -30 : W + 6, y: 16 + Math.random() * 26 };
+        }
+      }
       const fall = 42 + elapsed * 2.4;
       const move = 170 * dt;
       if (keys.ArrowLeft || keys.a) { x -= move; target = null; }
