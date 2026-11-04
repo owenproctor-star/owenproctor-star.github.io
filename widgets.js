@@ -119,7 +119,7 @@
 
   const PET_LINES = ["{name} leans in for more.", "{name}'s tail is going wild.", "Best. Pets. Ever, says {name}."];
   const TREAT_LINES = ["{name} says thank you, very politely.", "Gone in one bite. {name} checks for another.", "{name} approves of this website."];
-  const FALLBACK_FACTS = ["Alfi is the chihuahua. Sigi is the black and white one."];
+  const FALLBACK_FACTS = ["Sigi is a pit bull and Malamute mix, very energetic and happy.", "Alfi is a chihuahua and Italian greyhound mix. A little bit of a grouch, but loves to snuggle."];
 
   // Small localStorage helper that keeps working in private browsing.
   const memory = {};
